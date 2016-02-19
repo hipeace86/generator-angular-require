@@ -100,7 +100,7 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
       }, {
         value: 'routeModule',
         name: 'angular-route.js',
-        checked: true
+        checked: false
       }, {
         value: 'animateModule',
         name: 'angular-animate.js',
@@ -108,8 +108,12 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
       }, {
         value: 'touchModule',
         name: 'angular-touch.js',
-        checked: true
+        checked: false
       }, {
+          value: 'uiRouterModule',
+          name: 'angular-ui-router.js',
+          checked: true
+      },{
         value: 'ariaModule',
         name: 'angular-aria.js',
         checked: false
@@ -132,6 +136,7 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
       this.routeModule = hasMod('routeModule');
       this.animateModule = hasMod('animateModule');
       this.touchModule = hasMod('touchModule');
+      this.uiRouterModule = hasMod('uiRouterModule');
 
       var angMods = [];
 
@@ -169,7 +174,10 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
         angMods.push('ngTouch');
         this.env.options.ngTouch = true;
       }
-
+      if (this.uiRouterModule) {
+          angMods.push('uiRouter');
+          this.env.options.uiRouter = true;
+      }
       this.env.options.angularDeps = angMods;
 
       cb();
@@ -196,6 +204,7 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
           routeModule: this.routeModule,
           sanitizeModule: this.sanitizeModule,
           touchModule: this.touchModule,
+          uiRouterModule: this.uiRouterModule,
           bootstrap: this.bootstrap,
           compassBootstrap: this.compassBootstrap,
           appPath: this.appPath,
@@ -263,6 +272,7 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
 
     indexHtml: function() {
       this.ngRoute = this.env.options.ngRoute;
+      this.uiRouter = this.env.options.uiRouter;
       this.indexFile = this.engine(this.read('app/index.html'), this);
       this.indexFile = this.indexFile.replace(/&apos;/g, "'");
       this.write(path.join(this.appPath, 'index.html'), this.indexFile);

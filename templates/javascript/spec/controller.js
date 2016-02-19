@@ -20,7 +20,7 @@ define(['angular', 'angular-mocks', 'app'], function(angular, mocks, app) {
     }));
 
     it('should attach a list of awesomeThings to the scope', function () {
-      expect(<%= classedName %>Ctrl.awesomeThings.length).toBe(3);
+        expect(<%= classedName %>Ctrl._AuthorCompany_.length).toBe(6);
     });
   });
 });

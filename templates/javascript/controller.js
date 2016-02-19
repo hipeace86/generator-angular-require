@@ -10,10 +10,6 @@ define(['angular'], function (angular) {
    */
   angular.module('<%= scriptAppName %>.controllers.<%= classedName %>Ctrl', [])
     .controller('<%= classedName %>Ctrl', function () {
-      this.awesomeThings = [
-        'HTML5 Boilerplate',
-        'AngularJS',
-        'Karma'
-      ];
+      this._AuthorCompany_ = 'Ciprun';
     });
 });

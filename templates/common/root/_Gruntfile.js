@@ -23,7 +23,7 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    dist: '../dist/<%%= appname =>'
   };
 
   // Define the configuration for all the tasks
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
-        importPath: './bower_components',
+        importPath: './asserts',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -129,8 +129,8 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/asserts',
+                connect.static('./asserts')
               ),
               connect().use(
                 '/app/styles',
@@ -149,8 +149,8 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/asserts',
+                connect.static('./asserts')
               ),
               connect.static(appConfig.app)
             ];
@@ -184,12 +184,12 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.',
           dest: '.tmp',
-          src: ['bower_components/**/*']
+          src: ['asserts/**/*']
         }, {
           expand: true,
           cwd: '.',
           dest: '<%%= yeoman.dist %>',
-          src: ['bower_components/requirejs/*']
+          src: ['asserts/requirejs/*']
         }, {
           expand: true,
           cwd: '.tmp/images',
@@ -198,12 +198,12 @@ module.exports = function (grunt) {
         }<% if (bootstrap) { %>, {
           expand: true,
           cwd: '<% if (!compassBootstrap) {
-              %>bower_components/bootstrap/dist<%
+              %>asserts/bootstrap/dist<%
             } else {
               %>.<%
             } %>',
           src: '<% if (compassBootstrap) {
-              %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap<%
+              %>asserts/bootstrap-sass-official/assets/fonts/bootstrap<%
             } else { %>fonts<% }
             %>/*',
           dest: '<%%= yeoman.dist %>'
@@ -458,7 +458,7 @@ module.exports = function (grunt) {
       }<% if (compass) { %>,
       sass: {
       src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        ignorePath: /(\.\.\/){1,2}asserts\//
       }<% } %>
     }
   });
@@ -474,7 +474,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
+    //'cdnify',
     'cssmin',
     'filerev',
     'usemin',

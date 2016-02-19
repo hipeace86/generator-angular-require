@@ -8,7 +8,8 @@ require.config({
     'angular-sanitize': ['angular']<% } %><% if (resourceModule) { %>,
     'angular-resource': ['angular']<% } %><% if (animateModule) { %>,
     'angular-animate': ['angular']<% } %><% if (touchModule) { %>,
-    'angular-touch': ['angular']<% } %>,
+    'angular-touch': ['angular']<% } %><% if (uiRouterModule) { %>,
+    'angular-ui-router':['angular']<% }  %>,
     'angular-mocks': {
       deps:['angular'],
       'exports':'angular.mock'
@@ -30,8 +31,9 @@ require([
   'angular-sanitize'<% } %><% if (resourceModule) { %>,
   'angular-resource'<% } %><% if (animateModule) { %>,
   'angular-animate'<% } %><% if (touchModule) { %>,
-  'angular-touch'<% } %>
-], function(angular, app<% if (routeModule) { %>, ngRoutes<% } %><% if (cookiesModule) { %>, ngCookies<% } %><% if (sanitizeModule) { %>, ngSanitize<% } %><% if (resourceModule) { %>, ngResource<% } %><% if (animateModule) { %>, ngAnimate<% } %><% if (touchModule) { %>, ngTouch<% } %>) {
+  'angular-touch'<% } %><% if (uiRouterModule) {%>,
+  'angular-ui-router'<% } %>
+], function(angular, app<% if (routeModule) { %>, ngRoutes<% } %><% if (cookiesModule) { %>, ngCookies<% } %><% if (sanitizeModule) { %>, ngSanitize<% } %><% if (resourceModule) { %>, ngResource<% } %><% if (animateModule) { %>, ngAnimate<% } %><% if (touchModule) { %>, ngTouch<% } %><% if (uiRouterModule) { %>, uiRouter<% } %>) {
   'use strict';
   /* jshint ignore:start */
   var $html = angular.element(document.getElementsByTagName('html')[0]);
