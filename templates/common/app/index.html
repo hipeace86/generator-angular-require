@@ -53,7 +53,7 @@
     <div class="container">
     <% if (ngRoute) {
       %><div ng-view></div><%
-    } else { %>,<% if (uiRouter) { %>
+    } else { %><% if (uiRouter) { %>
             <div ui-view></div>
         <% } else {%>
         <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
