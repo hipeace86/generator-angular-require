@@ -1,6 +1,15 @@
 /*jshint unused: vars */
 require.config({
-  paths: {},
+  paths: {
+    angular: '../../asserts/angular/angular'<% if (routeModule) {%>,
+    'angular-route': '../../asserts/angular-route/angular-route'<% } %><% if (cookiesModule) {%>,
+    'angular-cookies': '../../asserts/angular-cookies/angular-cookies.min'<% } %><% if (sanitizeModule) {%>,
+    'angular-sanitize': '../../asserts/angular-sanitize/angular-sanitize.min'<% } %><% if (resourceModule) {%>,
+    'angular-resource': '../../asserts/angular-resource/angular-resource.min'<% } %><% if (animateModule) {%>,
+    'angular-animate': '../../asserts/angular-animate/angular-animate.min'<% } %><% if (touchModule) {%>,
+    'angular-touch': '../../asserts/angular-touch/angular-touch.min'<% } %><% if (uiRouterModule) {%>,
+    'angular-ui-router': '../../asserts/angular-ui-router/release/angular-ui-router.min'<% } %>
+   },
   shim: {
     'angular' : {'exports' : 'angular'}<% if (routeModule) { %>,
     'angular-route': ['angular']<% } %><% if (cookiesModule) { %>,

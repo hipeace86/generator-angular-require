@@ -22,5 +22,14 @@ define(['angular']/*deps*/, function (angular)/*invoke*/ {
         .otherwise({
           redirectTo: '/'
         });
-    })<% } %>;
+    })<% } %><% if (uiRouter) {%>
+    .config(function ($stateProvider, $urlRouterProvider) {
+       // $httpProvider.interceptors.push('httpInterceptor');
+        $stateProvider
+            .state('dashboard', {
+                url: '/',
+                templateUrl: 'views/main.html',
+            })
+     $urlRouterProvider.otherwise('/');
+    });<% }%>
 });
