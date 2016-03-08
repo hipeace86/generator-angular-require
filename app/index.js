@@ -68,11 +68,19 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
       name: 'compass',
       message: 'Would you like to use Sass (with Compass)?',
       default: true
-    }, {
+    },{
       type: 'confirm',
       name: 'bootstrap',
       message: 'Would you like to include Bootstrap?',
       default: true
+    },{
+        type: 'confirm',
+        name: 'metronic',
+        message: 'Would you like to include Montronic theme?',
+        default: true,
+        when: function (props) {
+            return props.bootstrap;
+        }
     }, {
       type: 'confirm',
       name: 'compassBootstrap',
@@ -126,6 +134,8 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
       this.compass = props.compass;
       this.bootstrap = props.bootstrap;
       this.compassBootstrap = props.compassBootstrap;
+      this.metronic = props.metronic;
+      this.env.options.metronic = props.metronic;
 
       var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
       this.ariaModule = hasMod('ariaModule');
@@ -208,7 +218,8 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
           bootstrap: this.bootstrap,
           compassBootstrap: this.compassBootstrap,
           appPath: this.appPath,
-          scriptAppName: this.scriptAppName
+          scriptAppName: this.scriptAppName,
+          metronic: this.metronic
         }
       );
     },
@@ -259,14 +270,22 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
     testDirectory: function() {
       this.directory('test');
     },
+
+    assertsDirectory: function() {
+      this.directory('asserts');
+    }
   },
 
   writing: {
     bootstrapFiles: function() {
       var cssFile = 'styles/main.' + (this.compass ? 's' : '') + 'css';
-      this.copy(
-        path.join('app', cssFile),
-        path.join(this.appPath, cssFile)
+      this.fs.copyTpl(
+          this.templatePath(path.join('app',cssFile)),
+          this.destinationPath(path.join(this.appPath,cssFile)),
+          {
+              metronic: this.metronic,
+              compassBootstrap: this.compass
+          }
       );
     },
 
@@ -297,15 +316,42 @@ var AngularRequireJSGenerator = yeoman.Base.extend({
       copy('favicon.ico');
       copy('robots.txt');
       copy('views/main.html');
+      if(this.metronic){
+          copy('views/footer.html');
+          copy('views/header.html');
+          copy('views/page-head.html');
+          copy('views/sidebar.html');
+          copy('views/login.html');
+          this.copy(path.join('app', 'views/m-main.html'),path.join(this.appPath, 'views/main.html'));
+          this.template('../../templates/common/app/scripts/controllers/footer.js', path.join(this.appPath, 'scripts/controllers/footer.js'));
+          this.template('../../templates/common/app/scripts/controllers/header.js', path.join(this.appPath, 'scripts/controllers/header.js'));
+          this.template('../../templates/common/app/scripts/controllers/login.js', path.join(this.appPath, 'scripts/controllers/login.js'));
+          this.template('../../templates/common/app/scripts/controllers/modalinstance.js', path.join(this.appPath, 'scripts/controllers/modalinstance.js'));
+          this.template('../../templates/common/app/scripts/controllers/pagehead.js', path.join(this.appPath, 'scripts/controllers/pagehead.js'));
+          this.template('../../templates/common/app/scripts/controllers/sidebar.js', path.join(this.appPath, 'scripts/controllers/sidebar.js'));
+          this.template('../../templates/common/app/scripts/directives/ngspinnerbar.js', path.join(this.appPath, 'scripts/directives/ngspinnerbar.js'));
+          this.template('../../templates/common/app/scripts/directives/paging.js', path.join(this.appPath, 'scripts/directives/paging.js'));
+          this.template('../../templates/common/app/scripts/services/httpinterceptor.js', path.join(this.appPath, 'scripts/services/httpinterceptor.js'));
+          this.template('../../templates/common/app/scripts/services/async.js', path.join(this.appPath, 'scripts/services/async.js'));
+          this.template('../../templates/metronic/index.html', path.join(this.appPath, 'index.html'));
+      }
       this.directory(path.join('app', 'images'), path.join(this.appPath, 'images'));
+      
     },
 
     appFile: function() {
       this.angularModules = this.env.options.angularDeps;
       this.ngRoute = this.env.options.ngRoute;
       this.uiRouter = this.env.options.uiRouter;
+      this.metronic = this.env.options.metronic;
       this.template('../../templates/javascript/app.js', path.join(this.appPath, 'scripts/app.js'));
     },
+      metronicFile: function() {
+        if(this.metronic) {
+          this.sourceRoot(path.join(__dirname, '../templates'));
+          this.directory('metronic',path.join('asserts','metronic'));
+        }
+      }
   },
 
   install: function() {

@@ -1,6 +1,20 @@
-<% if (compassBootstrap) { %>$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+<% if (compassBootstrap) { %>$icon-font-path: "../asserts/bootstrap-sass-official/assets/fonts/bootstrap/";
 <% } %>// bower:scss
 // endbower
+@import "/asserts/bootstrap/dist/css/bootstrap.min.css";
+<% if (metronic) { %>@import "/asserts/metronic/global/plugins/font-awesome/css/font-awesome.min.css";
+@import "/asserts/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css";
+// @import "/asserts/metronic/global/plugins/uniform/css/uniform.default.css";
+// @import "/asserts/metronic/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css";
+@import "/asserts/metronic/global/css/components.css";
+@import "/asserts/metronic/admin/layout/css/layout.css";
+@import "/asserts/metronic/admin/layout/css/themes/darkblue.css";
+@import "/asserts/metronic/admin/pages/css/login.css";
+
+
+// @import "/asserts/metronic/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css";
+// @import "/asserts/metronic/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css";
+// @import "/asserts/metronic/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"; <% } %>
 
 .browsehappy {
   margin: 0.2em 0;
