@@ -210,6 +210,21 @@ module.exports = function (grunt) {
             } else { %>fonts<% }
             %>/*',
           dest: '<%%= yeoman.dist %>'
+        }<% } %><% if(metronic) { %>, {
+            expand: true,
+            cwd: 'asserts/metronic/global/plugins/font-awesome',
+            src: 'fonts/*',
+            dest: '<%%= yeoman.dist %>'
+        }, {
+            expand: true,
+            cwd: 'asserts/metronic/global/plugins/simple-line-icons',
+            src: 'fonts/*',
+            dest: '<%%= yeoman.dist %>/styles'
+        }, {
+            expand: true,
+            cwd: 'asserts/metronic/admin/layout',
+            src: 'images/*',
+            dest: '<%%= yeoman.dist %>'
         }<% } %>]
       },
       styles: {
