@@ -1,6 +1,6 @@
 # <%= appSlugName %>
 
-This project is generated with [yo angular-require generator](https://github.com/aaronallport/generator-angular-require)
+This project is generated with [yo angular-require generator](https://github.com/hipeace86/generator-angular-require)
 version <%= pkg.version %>.
 
 ## Development & building
